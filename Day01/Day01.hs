@@ -4,13 +4,16 @@ module Day01 where
 
 import Data.Tuple
 
+type Dial = Int
+type Turn = Int
+
 parseInput :: String -> Int
 parseInput (c:cs)
   | c == 'L'  = (-1) * read @Int cs
   | c == 'R'  = read @Int cs
   | otherwise = 0
 
-turnDial :: Int -> Int -> (Int, Int)
+turnDial :: Dial -> Turn -> (Dial, Int)
 turnDial p x = wrap (p+x)
   where wrap n
           | n > 0 = swap $ (p+x) `divMod` 100
@@ -19,9 +22,9 @@ turnDial p x = wrap (p+x)
               d = (abs n) `div` 100
               m = n `mod` 100
             in if (p == 0) then (m, d) else (m, d+1)
-          | otherwise = (n, 1)
+          | otherwise = (0, 1)
 
-part1 :: [Int] -> Int
+part1 :: [Turn] -> Int
 part1 = snd . foldl' f (50, 0)
   where f (p, acc) x =
           let
@@ -30,7 +33,7 @@ part1 = snd . foldl' f (50, 0)
             0 -> (p', acc+1)
             otherwise -> (p', acc)
 
-part2 :: [Int] -> Int
+part2 :: [Turn] -> Int
 part2 = snd . foldl' f (50, 0)
   where f (p, acc) x = (+acc) <$> turnDial p x
 
