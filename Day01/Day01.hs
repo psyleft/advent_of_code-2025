@@ -7,7 +7,7 @@ import Data.Tuple
 type Dial = Int
 type Turn = Int
 
-parseInput :: String -> Int
+parseInput :: String -> Turn
 parseInput (c:cs)
   | c == 'L'  = (-1) * read @Int cs
   | c == 'R'  = read @Int cs
