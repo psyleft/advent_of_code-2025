@@ -30,7 +30,7 @@ isInvalid id =
 isInvalid' :: Id -> Bool
 isInvalid' id =
   case halve id of
-    (l, _) -> any f $ tail $ inits l
+    (l, _) -> any f $ drop 1 $ inits l
   where f x = id `isPrefixOf` cycle x && (length id) `mod` (length x) == 0
 
 part1 :: [Id] -> Int
