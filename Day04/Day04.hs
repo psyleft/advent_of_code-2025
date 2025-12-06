@@ -20,7 +20,7 @@ makeDiagram :: [String] -> Diagram
 makeDiagram = M.fromList . concat . map (uncurry parseRow) . zip [0..]
 
 lookupAdjacent :: Coord -> Diagram -> [Bool]
-lookupAdjacent (x, y) m = catMaybes $ map (flip M.lookup $ m) coords
+lookupAdjacent (x, y) m = catMaybes $ map (($ m) . M.lookup) coords
   where coords = [(x+a, y+b) | a <- [(-1)..1], b <- [(-1)..1]]
 
 isAccessible :: Coord -> Diagram -> Bool
